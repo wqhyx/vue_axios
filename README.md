@@ -1,3 +1,6 @@
+#vue 3.0以上版本
+#代码更简洁，方便，实用
+
 # vue_axios
 
 ## Project setup
