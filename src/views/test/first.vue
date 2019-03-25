@@ -42,6 +42,7 @@
       console.log('second',iterator1.next().value);
       console.log('thirth',iterator1.next().value);
 
+
     }
   }
 </script>
