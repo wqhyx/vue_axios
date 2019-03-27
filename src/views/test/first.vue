@@ -18,12 +18,28 @@
         array: ['a', 'b', 'c', 'd', 'e'],
         list4: [1,4,6,7],
         list5: ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'],
-
+        list6: [1,4,5,,[3,6]],
     }
     }, created() {
       //console.log('长度大小',Array.prototype.push.apply(this.list1, this.list2))
       // concat是连接一个或多个数组
       //console.log('合并',Array.prototype.concat.apply(this.list1, this.list2))
+      /*初始化一个对象*/
+      var fromParmas = new FormData();
+      fromParmas.append("name",'jack');
+      fromParmas.append("age",'18');
+      fromParmas.append("list",this.list5);
+      fromParmas.append("list",this.list1);
+      console.log('获取对应值',fromParmas.get("list"));
+      console.log('获取对应所有值',fromParmas.getAll("list"));
+      fromParmas.set("age","20");  /**修改对应的值*/
+      console.log('获取对应的值',fromParmas.get("age"));
+      /*是否有存在的值*/
+      console.log('是否有对应的值',fromParmas.has("name"));
+      /**删除对应的值*/
+      fromParmas.delete("age");
+      console.log('获取删除之后的值',fromParmas.get("age"));
+
     }, methods: {
       allList: function () {
         //console.log("争论:",arguments);
@@ -55,7 +71,17 @@
       /** filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。  */
       console.log(this.list5.filter(rep=>rep.length > 6));   //过滤返回长度大于6的
       console.log(this.list5.filter(rep=>rep.match('e')));   //过滤返回带有 字母 e 的
-
+      /** find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。 */
+      console.log('返回大于此数的第一个值，否则返回undefined',this.list4.find(rep=>rep>2));
+      /** findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。 */
+      console.log('返回大于此数第一个值的下表，否则返回-1',this.list4.findIndex(rep=>rep>2));
+      /** flat() 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。 */
+      console.log('递归从新遍历返回新数组',this.list6.flat());
+      /*flatMap() 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，
+      但 flatMap 通常在合并成一种方法的效率稍微高一些。*/
+      console.log('flatMap',this.list6.flat().flatMap(rep=>rep*2));
+      console.log('Map',this.list1.map(x=>[x]));
+      console.log('flatMap2',this.list1.flatMap(rep=>[rep]));
     }
   }
 </script>
