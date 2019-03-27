@@ -67,7 +67,7 @@
       /** fill() 方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止 */
       console.log('fill',this.list2.fill(7));   //填充7
       console.log('fill',this.list2.fill(0,0,2));  //从0到第2位，填0
-      console.log('fill',this.list2.fill(8,2))  //从位置3一直填充8
+      console.log('fill',this.list2.fill(8,2));  //从位置3一直填充8
       /** filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。  */
       console.log(this.list5.filter(rep=>rep.length > 6));   //过滤返回长度大于6的
       console.log(this.list5.filter(rep=>rep.match('e')));   //过滤返回带有 字母 e 的
