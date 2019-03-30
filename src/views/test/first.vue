@@ -19,6 +19,10 @@
         list4: [1,4,6,7],
         list5: ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'],
         list6: [1,4,5,,[3,6]],
+        this7: [7,9,0],
+        list8: [{"jack":"123"},{"age":"123"}],
+        list9: [1,1,2],
+
     }
     }, created() {
       //console.log('长度大小',Array.prototype.push.apply(this.list1, this.list2))
@@ -82,6 +86,36 @@
       console.log('flatMap',this.list6.flat().flatMap(rep=>rep*2));
       console.log('Map',this.list1.map(x=>[x]));
       console.log('flatMap2',this.list1.flatMap(rep=>[rep]));
+      console.log('flatMap3',this.list1.flatMap(rep=>rep*2));
+      /** forEach() 方法对数组的每个元素执行一次提供的函数。 */
+      this.list2.forEach(rep=>{
+        console.log('forEach',rep)
+      });
+      /** includes() 方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。 */
+      console.log(this.list2.includes(2));  //如果包含2返回true，否则false
+      if(this.this7.includes(0)){     //如果包含7，就返回他的下标
+        console.log('返回下标',this.this7.findIndex(rep=>rep==0));
+      }
+      /**indexOf()方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。*/
+      console.log('当前值，存在的下标',this.this7.indexOf(9));  //返回1
+      console.log('从下标2开始查找',this.this7.indexOf(1,2))  //返回-1
+      /** join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。如果数组只有一个项目，
+       * 那么将返回该项目而不使用分隔符。 */
+      console.log('join',this.this7.join());
+      /** keys() 方法返回一个包含数组中每个索引键的Array Iterator对象。 */
+      var this7other = this.list9.keys();
+      for (let tmp of  this7other){
+        console.log('keys',tmp);
+      }
+      /**lastIndexOf() 方法返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。
+       * 从数组的后面向前查找，从 fromIndex 处开始*/
+      console.log('找出最后符合元素的下标',this.list9.lastIndexOf(2));   //返回对应下标
+      console.log('lastIndexOf',this.list9.lastIndexOf(3));  //没有找到，返回-1
+      console.log('lastIndexOf',this.list9.lastIndexOf(2,5));
+      /** map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果 */
+      console.log('map',this.list9.map(rep=>rep*3))   //对应每个元素乘以3
+      console.log('map',this.list9.map(rep=>[rep*2]))  //对应每个元素乘以2，并且分割
+
     }
   }
 </script>
