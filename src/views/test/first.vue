@@ -22,7 +22,7 @@
         this7: [7,9,0],
         list8: [{"jack":"123"},{"age":"123"}],
         list9: [1,1,2],
-
+        list10: [1,1,1,2],
     }
     }, created() {
       //console.log('长度大小',Array.prototype.push.apply(this.list1, this.list2))
@@ -49,7 +49,7 @@
         //console.log("争论:",arguments);
         return Array.prototype.concat.apply([], arguments);
       },isBelowThreshold(value){
-        return value < 2;
+        return value < 5;
       }
     },mounted(){
 
@@ -72,11 +72,12 @@
 
       /** every() 方法测试数组的所有元素是否都通过了指定函数的测试。 */
       console.log('every',this.list4.every(this.isBelowThreshold))  // true <==> false
+      console.log('every',this.list4.every(rep=>rep<6));
 
       /** fill() 方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止 */
       console.log('fill',this.list2.fill(7));   //填充7
       console.log('fill',this.list2.fill(0,0,2));  //从0到第2位，填0
-      console.log('fill',this.list2.fill(8,2));  //从位置3一直填充8
+      console.log('fill',this.list2.fill(8,2));  //从索引2一直填充8
 
       /** filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。  */
       console.log(this.list5.filter(rep=>rep.length > 6));   //过滤返回长度大于6的
@@ -132,6 +133,85 @@
       /** map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果 */
       console.log('map',this.list9.map(rep=>rep*3))   //对应每个元素乘以3
       console.log('map',this.list9.map(rep=>[rep*2]))  //对应每个元素乘以2，并且分割
+
+      /** pop()方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。 */
+      console.log('pop之前',this.list10.pop());
+      console.log('pop之后',this.list10)   //最后一位删除了
+
+      /** push() 方法将一个或多个元素添加到数组的末尾，并返回该数组的新长度。 */
+      console.log('push之前',this.list10.push(77));
+      console.log('push之后',this.list10);
+
+      /** reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。 */
+      const com = (accountVal,otherVal) => (accountVal + otherVal);  //相加
+      console.log('reduce',this.list10.reduce(com));
+      console.log('reduce',this.list10.reduce(com,10));
+      var maxCallback = ( acc, cur ) => Math.max( acc.x, cur.x );  //获取最大那个
+      console.log([ { x: 52 }, { x: 42 } ].reduce( maxCallback ))
+
+      /** reduceRight() 方法接受一个函数作为累加器（accumulator）和数组的每个值（从右到左）将其减少为单个值。 */
+      var reduceright = [[0, 1], ['12',{"name":"jack"}], [4, 5]].reduceRight(
+        (accVal,currVal) => accVal.concat(currVal)
+      );
+      console.log('reduceright',reduceright);
+      console.log('reduceright 计数',[1,1,1].reduceRight(
+        (accVal,currVal)=> accVal+currVal
+      ));
+
+      /** reverse() 方法将数组中元素的位置颠倒,并返回该数组。该方法会改变原数组。 */
+      console.log('reverse',[1,7,8,10].reverse())  //将数组值反过来
+
+      /**  shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。 */
+      var array = [77,777,100].shift();
+      console.log('shift 删除第一个',array);
+      console.log('shift 删除第一个之前',this.list10);
+      console.log('shift 删除第一个中',this.list10.shift());
+      console.log('shift 删除第一个之后',this.list10);
+
+      /** slice() 方法返回一个新的数组对象，这一对象是一个由 begin和 end（不包括end）决定的原数组的浅拷贝。原始数组不会被改变。 */
+      console.log('slice',[1,2,3,4,5].slice(2));
+      console.log('slice',[2,3,44,66,20,10].slice(2,5));
+
+      /** some() 方法测试是否至少有一个元素通过由提供的函数实现的测试。 */
+      console.log('some',[2,5,7,0].some(rep => rep==7));
+      console.log('some',[2,5,7,0].some(rep => rep % 2 == 7));
+
+      /** sort() 方法用原地算法对数组的元素进行排序，并返回数组。排序算法现在是稳定的。默认排序顺序是根据字符串Unicode码点。 */
+      console.log('sort',[5,12,65,10,1].sort());
+
+      /**  splice() 方法通过删除或替换现有元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组。 */
+      var ter = [2,10,5,6,9],ty=[];
+      ty = ter;
+      ter.splice(1,0,7); // inserts at 1st index position
+      ty.splice(4,1,77);
+      console.log('splice 替换',ter);
+      console.log('splice 替换',ty);
+      var ww = [1,2,3,4,5,6].splice(3,1);
+      console.log('splice 删除的元素',ww)
+      var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
+      var removed = myFish.splice(3, 1);
+      console.log('splice 删除的元素',removed)
+      console.log('splice 删除的元素之后',myFish)
+
+      /**  toLocaleString() 返回一个字符串表示数组中的元素。数组中的元素将使用各自的 toLocaleString 方法转成字符串
+       * ，这些字符串将使用一个特定语言环境的字符串（例如一个逗号 ","）隔开。 */
+      console.log('toLocaleString',[1,4,5,7].toLocaleString());
+      console.log(new Date().toLocaleString().replace(/\//g,'-'));
+
+      /***toString() 返回一个字符串，表示指定的数组及其元素。*/
+     console.log('toString',[1,2,8,'jack',10].toString());
+
+     /** unshift() 方法将一个或多个元素添加到数组的开头，并返回该数组的新长度。 */
+     var tep = [2,4,6,8,10];
+      console.log('unshift',tep.unshift(0,1,1.5,1.6,1.7));
+      console.log('unshift',tep);
+
+      /** values() 方法返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值 */
+      const res = [4,7,"你好"].values();
+
+      for (var v of res){
+        console.log('values',v)
+      }
 
     }
   }
